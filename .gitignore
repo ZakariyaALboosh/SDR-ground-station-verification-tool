@@ -1,0 +1,7 @@
+# Generated output
+output/
+
+# MATLAB
+*.asv
+*.m~
+slprj/
