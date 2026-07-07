@@ -144,7 +144,7 @@ crcBits       = bits(48 + 8*len + 1 : need);
 protectedBits = bits(1 : 48 + 8*len);
 
 % CRC-16 check over [sync|seq|len|payload] against the received CRC.
-[~, err] = crcDet([protectedBits; crcBits]);
+[~, err] = crcDet(double([protectedBits; crcBits]));
 frame.crcValid = (err == 0);
 
 frame.payloadLen = len;

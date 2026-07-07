@@ -31,7 +31,9 @@ for k = 1:nFrames
     lenBits  = local_u16_bits(numel(chunk));
     dataBits = local_bytes_bits(chunk);
 
-    protectedBits = [syncBits; seqBits; lenBits; dataBits];
+    % Force double so comm.CRCGenerator accepts the input (de2bi may return
+    % uint8, which would promote the whole concatenation to uint8).
+    protectedBits = double([syncBits; seqBits; lenBits; dataBits]);
 
     % CRC-16 over the protected bits; comm.CRCGenerator appends the checksum.
     withCrc = crcGen(protectedBits);
@@ -67,6 +69,6 @@ end
 function bits = local_bytes_bits(bytes)
 % uint8 column -> column of bits, MSB first within each byte.
 bytes = uint8(bytes(:));
-b = de2bi(bytes, 8, 'left-msb');      % rows = bytes, cols = bits
+b = double(de2bi(bytes, 8, 'left-msb'));   % rows = bytes, cols = bits (as double)
 bits = reshape(b.', [], 1);
 end
