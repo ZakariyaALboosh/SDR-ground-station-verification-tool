@@ -1,0 +1,7 @@
+SDR Ground Station Verification Tool
+=====================================
+This is a small test payload transmitted over a simulated LEO pass.
+It exercises the full pre-deployment pipeline: TLE-based orbit
+propagation, dynamic Doppler, a link budget, BPSK with convolutional
+coding, a CRC-protected framing format, and an SDR-style receiver.
+If this exact text is recovered at the other end, the design works.
